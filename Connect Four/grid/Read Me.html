@@ -1,0 +1,413 @@
+<!-----------------------------------------------------------
+  OPEN THIS FILE WITH AN INTERNET BROWSER (NOT A TEXT EDITOR)
+  ----------------------------------------------------------->
+
+<html>
+
+<head>
+<title>grid - Package Documentation</title>
+<style type="text/css">
+body {
+	font-family: "Courier New", courier;
+	font-size: 12px;
+}
+a {
+	color: #0000ff;
+}
+td {
+	width:25%;
+	font-size: 12px;
+	vertical-align: top;
+	border: 2px solid #000000;
+}
+p {
+	font-weight: bold;
+	border-top: 1px dashed #000000;
+	padding-top: 10px;
+	margin-top: 10px;
+}
+i {
+	display: block;
+	color: #000022;
+	font-weight: normal;
+	border: 1px dotted #999999;
+	padding-top: 5px;
+	margin: 5px;
+}
+.class_name {
+	color: #dd0000;
+	text-decoration: underline;
+}
+.modif {
+	color: #884400;
+}
+.abst {
+	color: #008844;
+}
+.thrw {
+	color: #662266;
+}
+.ext {
+	color: #663355;
+}
+.code {
+	color: #444444;
+	font-style: normal;
+}
+</style>
+</head>
+
+
+<body>
+<p style="font-weight:normal; border: 0px hidden #000000;">
+Documentation on all included classes and interfaces within grid.*
+along with their public and protected fields, methods, and constructors
+<br /><br />
+Classes -
+<a href="#Grid">Grid</a> |
+<a href="#Box">Box</a> |
+<a href="#GridItem">GridItem</a> |
+<a href="#MovableGridItem">MovableGridItem</a> |
+<a href="#GridActor">GridActor</a>
+</p>
+<table><tr>
+<td>
+	<h2>Class</h2>
+</td>
+<td>
+	<h2>Fields</h2>
+</td>
+<td>
+	<h2>Methods</h2>
+</td>
+<td>
+	<h2>Constructors</h2>
+</td>
+</tr><tr> <!--Row 1-->
+<td id="Grid">
+	<p>
+	<span class="modif">public</span> class <span class="class_name">Grid</span>
+	<span class="ext">extends javax.swing.JFrame</span>
+	<i>the 2-dimensional world in which all grid programs exist,
+	having only width and height all grids contain a matrix of Box Objects in which to store their GridItems</i>
+	</p>
+</td>
+<td>
+	<p>
+	<i>none...</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> Box[][] getBoxes() <br />
+	<i>returns a multidimensional array of Box Objects that make up this grid</i>
+	</p>
+	<p>
+	<span class="modif">public</span> Box getBoxAt(int x, int y) <br />
+	<i>synonymous with -<span class="code"> getBoxes()[x][y]</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> int[] findBoxCord(Box b) <br />
+	<i>returns two integers in the form of {x, y}
+	where -<span class="code"> getBoxAt(x, y) </span>- would return b</i>
+	</p>
+	<p>
+	<span class="modif">public</span> int[] findBoxCord(GridItem i)
+	<span class="thrw">throws NullParentBoxException</span> <br />
+	<i>synonymous with -<span class="code"> findBoxCord(i.getParentBox()) </span>-
+	will throw an exception if <span class="code">i</span> dosn't have a parent Box</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void setBoxes(Box[][] b)
+	<span class="thrw">throws WrongGridSizeException</span> <br />
+	<i>sets all the boxes in the grid to those in the b matrix,
+	will throw an exception if b's size is different then that of the size of the grid</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void setBoxAt(Box b, int x, int y) <br />
+	<i>sets the box at (x,y) in the grid to b</i>
+	</p>
+	<p>
+	<span class="modif">public</span> GridActor[] findGridActors() <br />
+	<i>returns all GridItem Objects that exist on this Grid and are also GridActors</i>
+	</p>
+	<p>
+	<span class="modif">protected</span> void keyWasPressed(int k)
+	<span class="thrw">throws GridException</span> <br />
+	<i>called automatically when a key is pressed down on the keyboard,
+	causes all GridActors on the Grid to invoke -<span class="code"> keyDown(k)</span></i>
+	</p>
+	<p>
+	<span class="modif">protected</span> void keyWasReleased(int k)
+	<span class="thrw">throws GridException</span> <br />
+	<i>called automatically when a key is released on the keyboard,
+	causes all GridActors on the Grid to invoke -<span class="code"> keyUp(k)</span></i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> Grid(int x, int y, java.awt.Color t) <br />
+	<i>creates a grid with a width equal to x, a height equal to y,
+	and a background color equal to t</i>
+	</p>
+	<p>
+	<span class="modif">public</span> Grid(int x, int y) <br />
+	<i>same as -<span class="code"> new Grid(x, y, new java.awt.Color(0xffffff)); </span>-
+	setting the background color to white</i>
+	</p>
+</td>
+</tr><tr> <!--Row 2-->
+<td>
+	<p id="Box">
+	<span class="modif">public</span> class <span class="class_name">Box</span>
+	<span class="ext">extends javax.swing.JLabel</span>
+	<i>a container for a single GridItem, however one Grid can be made up of multiple Box Objects</i>
+	</p>
+</td>
+<td>
+	<p>
+	<i>none...</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> Grid getParentGrid() <br />
+	<i>returns the grid that this Box belongs to</i>
+	</p>
+	<p>
+	<span class="modif">public</span> java.awt.Color getTurf() <br />
+	<i>returns the background color of this Box</i>
+	</p>
+	<p>
+	<span class="modif">public</span> GridItem getGridItem() <br />
+	<i>returns the GridItem found in this Box, or <span class="code">null</span> if empty</i>
+	</p>
+	<p>
+	<span class="modif">public</span> int[] getBoxCord() <br />
+	<i>retruns the coordinates of this Box in the form of {x, y} on its parent Grid,
+	will return null if this Box dosn't belong to a grid</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void addGridItem(GridItem item)
+	<span class="thrw">throws ParentBoxIsSetException, GridItemIsDeadException</span> <br />
+	<i>adds <span class="code">item</span> to this Box, will throw an exception if item already belongs to a Box,
+	will throw an exception if item has invoked the kill() method</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> Box(java.awt.Color t) <br />
+	<i>creates a box with the background color of t</i>
+	</p>
+	<p>
+	<span class="modif">public</span> Box(Color t, GridItem item)
+	<span class="thrw">throws ParentBoxIsSetException, GridItemIsDeadException</span> <br />
+	<i>synonymous with -<span class="code"> { Box b = new Box(t); b.addGridItem(item); }</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> Box(GridItem item)
+	<span class="thrw">throws ParentBoxIsSetException, GridItemIsDeadException</span> <br />
+	<i>synonymous with -<span class="code"> new Box(new java.awt.Color(0xffffff), item); </span>-
+	setting the new Box's background color to white</i>
+	</p>
+	<p>
+	<span class="modif">public</span> Box() <br />
+	<i>synonymous with -<span class="code"> new Box(new java.awt.Color(0xffffff)) </span>-
+	setting the new Box's background color to white</i>
+	</p>
+</td>
+</tr><tr> <!--Row 3-->
+<td>
+	<p id="GridItem">
+	<span class="modif">public</span> <span class="abst">abstract</span> class <span class="class_name">GridItem</span>
+	<i>items to be placed on the 2D Grid, all GridItem Objects can be placed within a parent Box,
+	if that Box is on a Grid then the GridItem will display there</i>
+	</p>
+</td>
+<td>
+	<p>
+	<i>none...</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> Box getParentBox() <br />
+	<i>returns the Box with which this GridItem belongs to</i>
+	</p>
+	<p>
+	<span class="modif">public</span> Grid getParentGrid()
+	<span class="thrw">throws NullParentBoxException</span> <br />
+	<i>synonymous with -<span class="code"> this.getParentBox().getParentGrid() </span>- however,
+	will throw an exception if <span class="code">this.getParentBox()</span> returns null</i>
+	</p>
+	<p>
+	<span class="modif">public</span> javax.swing.ImageIcon getIcon() <br />
+	<i>returns the ImageIcon Object that represents the icon that displays your GridItem</i>
+	</p>
+	<p>
+	<span class="modif">public</span> String getName() <br />
+	<i>returns the name of this GridItem,
+	the name of a GridItem is a String that represents the GridItem,
+	as well the name will be displayed on hover</i>
+	</p>
+	<p>
+	<span class="modif">public</span> int[] getBoxCord()
+	<span class="thrw">throws NullParentBoxException</span> <br />
+	<i>synonymous with -<span class="code"> this.getParentBox().getBoxCord() </span>- however,
+	will throw an exception if <span class="code">this.getParentBox()</span> returns null</i>
+	</p>
+	<p>
+	<span class="modif">public</span> boolean isAlive() <br />
+	<i>returns false if this GridItem has ever invoked the kill() method,
+	else it returns true</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void setIcon(javax.swing.ImageIcon i) <br />
+	<i>sets the GridItems icon to i</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void setName(String n) <br />
+	<i>set this GridItem's name to <span class="code">n</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> void addToBox(Box b)
+	<span class="thrw">throws ParentBoxIsSetException, GridItemIsDeadException</span> <br />
+	<i>synonymous with -<span class="code"> b.addGridItem(this) </span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> void removeFromGrid()
+	<span class="thrw">throws GridItemIsDeadException, NullParentBoxException</span> <br />
+	<i>removes the GridItem from its parent Box ergo removing it from the Grid,
+	will throw an exception if the GridItem has even invoked the kill() method,
+	will throw an exception if the GridItem dosn't belong to any parent Box</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void kill() <br />
+	<i>used to delete a GridItem and insure it can not be re-placed in any Box</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void revive() <br />
+	<i>a fail-safe that will allow the GridItem to behave as if kill() was never invoked on it</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> GridItem(String url, String n) <br />
+	<i>creates a new GridItem displayed with an icon found at url, and with a name n</i>
+	</p>
+	<p>
+	<span class="modif">public</span> GridItem(String url, String n, Box b) <br />
+	<i>synonymous with
+	-<span class="code"> { GridItem g = new GridItem(url, n); b.addGridItem(g); } </span> - however,
+	will never throw ParentBoxIsSetException or GridItemIsDeadException from the addGridItem() method</i>
+	</p>
+	<p>
+	<span class="modif">public</span> GridItem(String url, Box b) <br />
+	<i>synonymous with -<span class="code"> new GridItem(url, "", b);</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> GridItem(String url) <br />
+	<i>synonymous with -<span class="code"> new GridItem(url, "");</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> GridItem() <br />
+	<i>synonymous with -<span class="code"> new GridItem("grid/default_griditem.dmi"); </span>-
+	this icon is supplied by the grid package</i>
+	</p>
+</td>
+</tr><tr> <!--Row 4-->
+<td>
+	<p id="MovableGridItem">
+	<span class="modif">public</span> <span class="abst">abstract</span> class <span class="class_name">MovableGridItem</span>
+	<span class="ext">extends GridItem</span>
+	<i>as a subclass of GridItem,
+	a MovableGridItem represents a GridItem that will be capable of moving from Box to Box
+	as to not be limited to its original parent Box and in turn move around the Grid</i>
+	</p>
+</td>
+<td>
+	<p>
+	<i>none...</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="abst">abstract</span> <span class="modif">protected</span> void bump(GridItem item)
+	<span class="thrw">throws GridException</span><br />
+	<i>invoked automatically when <span class="code">this.move()</span> causes the MovableGridItem
+	to try and move to a Box that already contains another GridItem,
+	item will have the value of the target Box's GridItem</i>
+	</p>
+	<p>
+	<span class="modif">protected</span> void move(int x, int y)
+	<span class="thrw">throws NullParentBoxException, NullParentGridException, GridItemIsDeadException</span> <br />
+	<i>moves this MovableGridItem x boxes right (east) and y boxes down (south),
+	this method was made to be called to from within some public method of a subclass of MovableGridItem,
+	i.e. -<span class="code"> Bug b = new Bug(); b.moveNorth();</span> assuming <span class="code">
+	public class Bug extends MovableGridItem{ public void moveNorth() { move(0, -1); } } </span>-
+	will throw an exception if this MovableGridItem is not in a box, if its parent Box is not in a Grid,
+	or if the MovableGridItem has ever invoked <span class="code">kill()</span></i>
+	</p>
+	<p>
+	<span class="modif">protected</span> void movedOffGrid() <br />
+	<i>invoked automatically when <span class="code">this.move()</span> causes the MovableGridItem
+	to try and move passed the bounds of its parent Grid,
+	by default it prints a message and then invokes <span class="code">this.kill()</span>,
+	consider overriding</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> MovableGridItem(String url, String n, Box b) <br />
+	<i>calls -<span class="code"> super(url, n. b);</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> MovableGridItem(String url, String n) <br />
+	<i>calls -<span class="code"> super(url, n);</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> MovableGridItem(String url, Box b) <br />
+	<i>calls -<span class="code"> super(url, b);</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> MovableGridItem(String url) <br />
+	<i>calls -<span class="code"> super(url);</span></i>
+	</p>
+	<p>
+	<span class="modif">public</span> MovableGridItem() <br />
+	<i>calls -<span class="code"> super();</span></i>
+	</p>
+</td>
+</tr><tr> <!--Row 5-->
+<td id="GridActor">
+	<p>
+	<span class="modif">public</span> interface <span class="class_name">GridActor</span> <br />
+	<i>if a GridItem implements this, it can act on events sent from the keyboard to its parent Grid</i>
+	</p>
+</td>
+<td>
+	<p>
+	<i>none...</i>
+	</p>
+</td>
+<td>
+	<p>
+	<span class="modif">public</span> void keyUp(key k)
+	<span class="thrw">throws GridException</span> <br />
+	<i>invoked when a key is released, <span class="code">k</span> has the value of that key</i>
+	</p>
+	<p>
+	<span class="modif">public</span> void keyDown(key k)
+	<span class="thrw">throws GridException</span> <br />
+	<i>invoked when a key is pressed down, <span class="code">k</span> has the value of that key</i>
+	</p>
+</td>
+<td>
+	<p>
+	<i>N/A</i>
+	</p>
+</td>
+</tr></table>
+</body>
+
+</html>
